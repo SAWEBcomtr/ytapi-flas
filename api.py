@@ -7,39 +7,30 @@ app = Flask(__name__)
 def download_video():
     url = request.args.get('url')
     if not url:
-        return jsonify({"error": "URL parametresi gerekli"}), 400
-
-    cookies = {
-        "SID": "g.a000xwgcmyzP-deGA3oPcb1zMxezIZ2-nA9FYUS_ocdzw_3R3nffK2XCP2xvEX_utGYCy58u9QACgYKAcwSARUSFQHGX2Mi0YeopImQPuIz6SCKHfY5eBoVAUF8yKrE9b6jko8wDsE0TwkbZO780076",
-        "HSID": "A3E9g5IEdjf8ZPZZr",
-        "SSID": "AngX9jIQU2k40ISSd",
-        "APISID": "W6Emi28bEu0YGk-x/AKKqWcdlwhCsCxgqA",
-        "SAPISID": "8Pg0qxXUJ4pIdr4w/A7rMBcm57Zv3StMBk"
-        # Aşağıdaki satırlar geçici olarak çıkarıldı çünkü 502'ye neden olabiliyor
-        # "LOGIN_INFO": "...",
-        # "YSC": "..."
-    }
+        return jsonify({"error": "Lütfen bir URL belirtin."}), 400
 
     ydl_opts = {
         'quiet': True,
         'skip_download': True,
-        'cookiefile': None,
-        'cookies': cookies
+        'cookiefile': 'cookies.txt'  # Çerez dosyasını kullanıyoruz
     }
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            formats = [{
+                "format_id": f.get("format_id"),
+                "ext": f.get("ext"),
+                "resolution": f.get("format_note") or f.get("height"),
+                "filesize": f.get("filesize") or 0,
+                "url": f.get("url")
+            } for f in info.get("formats", []) if f.get("ext") in ["mp4", "webm"] and f.get("url")]
+
             return jsonify({
                 "title": info.get("title"),
                 "thumbnail": info.get("thumbnail"),
-                "formats": [
-                    {
-                        "quality": f.get("format_note"),
-                        "url": f.get("url")
-                    }
-                    for f in info.get("formats", []) if f.get("url")
-                ]
+                "duration": info.get("duration"),
+                "formats": formats
             })
     except Exception as e:
         return jsonify({"error": str(e)}), 500

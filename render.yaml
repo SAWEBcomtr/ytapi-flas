@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: ytapi
+    env: python
+    buildCommand: ""
+    startCommand: python api.py
+    plan: free

@@ -14,9 +14,10 @@ def download_video():
         "HSID": "A3E9g5IEdjf8ZPZZr",
         "SSID": "AngX9jIQU2k40ISSd",
         "APISID": "W6Emi28bEu0YGk-x/AKKqWcdlwhCsCxgqA",
-        "SAPISID": "8Pg0qxXUJ4pIdr4w/A7rMBcm57Zv3StMBk",
-        "YSC": "Ovd2VQ_52S4",
-        "LOGIN_INFO": "AFmmF2swRgIhALgKKOIzUj2KwjTT7PmfVf-MRJ-nSeWmXBpHRJrG4ADJAiEAnUfSc0tuPFlfcHBukYjFqTPAZL9uOn17OWIBuckJBCk:QUQ3MjNmd19tWVl4NzlaNHN2TmZPbG9jYXFQYjd5cGZOWF9JLWNISkZCMHhzOVdTV3dueWF3MzZjRjg1bGxWNWllMjhTN2poZUsxemVBbjI2NElHQTFOSmcwVXdiZ0xEVEsySGc4SzI5MVlYUFg3ZjF6dk8tWlp2U2ZrWi1maW0xLXZKdVBDeWd0ajc0YThBcjcwVDhoazM2VFVpTWNEOTFB"
+        "SAPISID": "8Pg0qxXUJ4pIdr4w/A7rMBcm57Zv3StMBk"
+        # Aşağıdaki satırlar geçici olarak çıkarıldı çünkü 502'ye neden olabiliyor
+        # "LOGIN_INFO": "...",
+        # "YSC": "..."
     }
 
     ydl_opts = {
